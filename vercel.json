@@ -1,0 +1,48 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/v1/(.*)",
+      "dest": "/api/v1/$1"
+    },
+    {
+      "src": "/v2/(.*)",
+      "dest": "/api/v2/$1"
+    },
+    {
+      "src": "/v3/(.*)",
+      "dest": "/api/v3/$1"
+    },
+    {
+      "src": "/tools/(.*)",
+      "dest": "/api/tools/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "API_KEY": "nami-ai",
+    "OPENAI_API_KEY": "@openai_api_key",
+    "BASE_URL": "https://nami-privhandi.vercel.app"
+  },
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 60,
+      "memory": 3008
+    }
+  },
+  "regions": ["sin1"]
+}
